@@ -1,13 +1,13 @@
-using Game.BallMechanics;
 using static Raylib_cs.Raylib;
 
 namespace Game.Core;
 
 public class Physics
 {
-    public static int playerCount = GameHandler.Players.Length;
-    public static int[] Collisions = new int[playerCount];
 
+    public static float frame;
+    public static int[] Collisions;
+    public static int playerCount;
     public static void UpdatePlayer()
     {
         //0 - nothing 1 - top, bottom
@@ -37,12 +37,27 @@ public class Physics
                 case 0:
                     break;
                 case 1:
-                    GameHandler.Players[i].InvertY();
+                    GameHandler.Players[i].SpeedY *= -1;
                     break;
                 case 2:
-                    GameHandler.Players[i].InvertX();
+                    GameHandler.Players[i].SpeedX *= -1;
                     break;
             }
         }
+
+        for (int i = 0; i < GameHandler.Players.Length; i++)
+        {
+            GameHandler.Players[i].Move(GameHandler.Players[i].SpeedX * frame, GameHandler.Players[i].SpeedY * frame);
+        }
+    }
+
+    public static void InitCollisions()
+    {
+        playerCount = GameHandler.Players.Length;
+        Collisions = new int[playerCount];
+    }
+    public static void frameUp()
+    {
+        frame = GetFrameTime();
     }
 }

@@ -7,7 +7,7 @@ public class Consts
     private static readonly int leftMargin = (int)(Screen * 0.05);
     private static readonly int central = (int)(Screen * 0.9);
 
-    public int G = 400;
+    public const int G = 400;
 
     public const int Screen = 900;
     private const int borderThickness = 5;
