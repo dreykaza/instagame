@@ -10,9 +10,9 @@ public class Screen
     {
         ClearBackground(Color.White);
         foreach (var item in Consts.borderRects)
-        {
             DrawRectangleRec(item, Color.Gray);
-        }
-        DrawCircle((int)(GameHandler.Players[0].Coordinate.X), (int)(GameHandler.Players[0].Coordinate.Y), 10, Color.Black);
+
+        foreach (var item in GameHandler.Players)
+            DrawCircle((int)(item.Coordinate.X), (int)(item.Coordinate.Y), item.Radius, Color.Black);
     }
 }

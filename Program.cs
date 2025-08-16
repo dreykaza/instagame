@@ -9,13 +9,12 @@ class Program
     {
         Raylib.InitWindow(Consts.Screen, Consts.Screen, "Insta game");
         Raylib.SetTargetFPS(60);
-        GameHandler.PlayersInit();
-        Physics.InitCollisions();
+        GameHandler.Init(1);
         while (!Raylib.WindowShouldClose())
         {
             BeginDrawing();
-            Physics.frameUp();
-            Physics.UpdatePlayer();
+            float frame = GetFrameTime();
+            Physics.UpdatePlayer(frame);
             Screen.Draw();
             EndDrawing();
         }

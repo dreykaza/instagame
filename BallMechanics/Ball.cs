@@ -12,6 +12,7 @@ public class Ball
     public Vector2 Coordinate { get; set; }
     public float SpeedX { get; set; }
     public float SpeedY { get; set; }
+    public float Acceleration { get; set; }
 
     public void Move(float dx, float dy)
     {

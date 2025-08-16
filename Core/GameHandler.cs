@@ -6,21 +6,27 @@ public class GameHandler
 {
     public static Ball[] Players;
 
-    public GameHandler()
+    public static void Init(int Count)
     {
-        PlayersInit();
+        PlayersInit(Count);
+        Physics.InitCollisions();
     }
 
-    public static void PlayersInit()
+    public static void PlayersInit(int Count)
     {
-        Players = new Ball[1];
-        Players[0] = new Ball
+        Players = new Ball[Count];
+        for (int i = 0; i < Count; i++)
         {
-            Radius = 10,
-            SpeedY = 200.0f,
-            SpeedX = 200.0f,
-            Coordinate = new System.Numerics.Vector2 { X = 450, Y = 450 }
-        };
+            Players[i] = new Ball
+            {
+                Radius = 20,
+                SpeedY = 0.0f,
+                SpeedX = 0.0f,
+                Coordinate = new System.Numerics.Vector2 { X = 450, Y = 450 },
+                Acceleration = 0f
+            };
+        }
+
 
 
     }
