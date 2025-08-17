@@ -5,16 +5,15 @@ namespace Game.Core;
 public class Physics
 {
     public static int[] Collisions;
-    public static int playerCount;
     public static int XStagger = 0;
     public static int YStagger = 0;
 
     public static void UpdatePlayer(float frame)
     {
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < GameHandler.playerCount; i++)
             Collisions[i] = 0;
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < GameHandler.playerCount; i++)
         {
             for (int j = 0; j < Consts.borderRects.Length; j++)
             {
@@ -26,7 +25,7 @@ public class Physics
             }
         }
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < GameHandler.playerCount; i++)
         {
             switch (Collisions[i])
             {
@@ -48,18 +47,17 @@ public class Physics
                     break;
             }
         }
-        YStagger -= 1;
-        XStagger -= 1;
-        for (int i = 0; i < playerCount; i++)
+        YStagger--;
+        XStagger--;
+        for (int i = 0; i < GameHandler.playerCount; i++)
             GameHandler.Players[i].SpeedY += Consts.G;
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < GameHandler.playerCount; i++)
             GameHandler.Players[i].Move(GameHandler.Players[i].SpeedX * frame, GameHandler.Players[i].SpeedY * frame);
     }
 
     public static void InitCollisions()
     {
-        playerCount = GameHandler.Players.Length;
-        Collisions = new int[playerCount];
+        Collisions = new int[GameHandler.playerCount];
     }
 }

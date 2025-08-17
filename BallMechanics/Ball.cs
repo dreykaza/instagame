@@ -16,7 +16,7 @@ public class Ball
 
     public void Move(float dx, float dy)
     {
-        Coordinate = new Vector2(Coordinate.X + dx, Coordinate.Y + dy);
+        Coordinate = new(Coordinate.X + dx, Coordinate.Y + dy);
     }
 }
 

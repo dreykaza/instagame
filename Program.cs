@@ -15,6 +15,7 @@ class Program
             BeginDrawing();
             float frame = GetFrameTime();
             Physics.UpdatePlayer(frame);
+            WeaponHanlder.Spin();
             Screen.Draw();
             EndDrawing();
         }
