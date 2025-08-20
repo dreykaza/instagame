@@ -17,6 +17,6 @@ public class Screen
             DrawCircle((int)(item.Coordinate.X), (int)(item.Coordinate.Y), item.Radius, Color.Black);
 
         foreach (var item in GameHandler.Weapons)
-            DrawRectanglePro(item.HitBox, Consts.WeaponVec, item.Rotation, Color.Black);
+            DrawRectanglePro(item.HitBox, Consts.WeaponVec, item.Degree, Color.Black);
     }
 }

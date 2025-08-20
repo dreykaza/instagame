@@ -5,13 +5,12 @@ namespace Game.Core;
 public class Physics
 {
     public static int[] Collisions;
-    public static int XStagger = 0;
-    public static int YStagger = 0;
+    public static int[] XStagger = new int[GameHandler.playerCount];
+    public static int[] YStagger = new int[GameHandler.playerCount];
 
     public static void UpdatePlayer(float frame)
     {
-        for (int i = 0; i < GameHandler.playerCount; i++)
-            Collisions[i] = 0;
+        Array.Clear(Collisions);
 
         for (int i = 0; i < GameHandler.playerCount; i++)
         {
@@ -32,23 +31,27 @@ public class Physics
                 case 0:
                     break;
                 case 1:
-                    if (YStagger <= 0)
+                    if (YStagger[i] <= 0)
                     {
                         GameHandler.Players[i].SpeedY *= -1;
-                        YStagger = 50;
+                        YStagger[i] = 50;
                     }
                     break;
                 case 2:
-                    if (XStagger <= 0)
+                    if (XStagger[i] <= 0)
                     {
                         GameHandler.Players[i].SpeedX *= -1;
-                        XStagger = 50;
+                        XStagger[i] = 50;
                     }
                     break;
             }
         }
-        YStagger--;
-        XStagger--;
+        for (int i = 0; i < XStagger.Length; i++)
+        {
+            YStagger[i]--;
+            XStagger[i]--;
+
+        }
         for (int i = 0; i < GameHandler.playerCount; i++)
             GameHandler.Players[i].SpeedY += Consts.G;
 

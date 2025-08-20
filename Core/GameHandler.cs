@@ -1,3 +1,4 @@
+using System.Numerics;
 using Game.BallMechanics;
 
 namespace Game.Core;
@@ -6,8 +7,9 @@ public class GameHandler
 {
     public static Ball[] Players;
     public static Weapon[] Weapons;
-
+    private static readonly Random rng = new();
     public static int playerCount => Players.Length;
+    public static int weaponCount => Weapons.Length;
 
     public static void Init(int Count)
     {
@@ -26,8 +28,7 @@ public class GameHandler
                 Radius = 20,
                 SpeedY = 0.0f,
                 SpeedX = 0.0f,
-                Coordinate = new System.Numerics.Vector2 { X = 450, Y = 450 },
-                Acceleration = 0f
+                Coordinate = GetRandomPositionInsideBorder(),
             };
         }
     }
@@ -40,10 +41,26 @@ public class GameHandler
             Weapons[i] = new Weapon
             {
                 Speed = 0,
-                Rotation = 0,
-                HitBox = new Raylib_cs.Rectangle(GameHandler.Players[0].Coordinate, 75, 25)
+                Degree = 0,
+                HitBox = new Raylib_cs.Rectangle(GameHandler.Players[0].Coordinate, 75, 25),
+                RotationSpeed = 2
             };
         }
+    }
+
+
+    public static Vector2 GetRandomPositionInsideBorder()
+    {
+        int minX = Consts.leftMargin + Consts.borderThickness + 100;
+        int maxX = Consts.leftMargin + Consts.central - Consts.borderThickness - 100;
+
+        int minY = Consts.leftMargin + Consts.borderThickness + 100;
+        int maxY = Consts.leftMargin + Consts.central - Consts.borderThickness - 100;
+
+        int x = rng.Next(minX, maxX);
+        int y = rng.Next(minY, maxY);
+
+        return new Vector2(x, y);
     }
 
 }
