@@ -42,7 +42,7 @@ public class GameHandler
             {
                 Speed = 0,
                 Degree = 0,
-                HitBox = new Raylib_cs.Rectangle(GameHandler.Players[0].Coordinate, 75, 25),
+                HitBox = new Raylib_cs.Rectangle(GameHandler.Players[i].Coordinate, 75, 25),
                 RotationSpeed = 2
             };
         }

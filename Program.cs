@@ -7,17 +7,20 @@ class Program
 {
     static void Main(string[] args)
     {
+        float frame;
         Raylib.InitWindow(Consts.Screen, Consts.Screen, "Insta game");
         Raylib.SetTargetFPS(60);
         GameHandler.Init(2);
         while (!Raylib.WindowShouldClose())
         {
             BeginDrawing();
-            float frame = GetFrameTime();
-            Physics.UpdatePlayer(frame);
-            WeaponHanlder.WeaponCollision();
-            WeaponHanlder.Spin();
             Screen.Draw();
+            frame = GetFrameTime();
+            WeaponHanlder.WeaponCollision();
+            Console.WriteLine(SAT.GetRectangleCorners(GameHandler.Weapons[0].HitBox)[0].X);
+            Console.Write(SAT.GetRectangleCorners(GameHandler.Weapons[0].HitBox)[0].Y);
+            Physics.UpdatePlayer(frame);
+            WeaponHanlder.Spin();
             EndDrawing();
         }
     }

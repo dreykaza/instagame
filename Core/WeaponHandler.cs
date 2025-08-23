@@ -4,8 +4,9 @@ namespace Game.Core;
 
 public class WeaponHanlder
 {
-    public static int[] WeaponStagger = new int[GameHandler.weaponCount];
+    // public static int[] WeaponStagger = new int[GameHandler.weaponCount];
 
+    public static int WeaponStagger;
     public static void Spin()
     {
         for (int i = 0; i < GameHandler.playerCount; i++)
@@ -22,19 +23,18 @@ public class WeaponHanlder
             for (int j = 0; j < GameHandler.weaponCount; j++)
             {
                 if (i == j) continue;
-                if (CheckCollisionCircleRec(GameHandler.Players[i].Coordinate, GameHandler.Players[i].Radius, GameHandler.Weapons[j].HitBox))
+                if (CheckCollisionRecs(GameHandler.Weapons[i].HitBox, GameHandler.Weapons[j].HitBox))
                 {
-                    if (WeaponStagger[j] <= 0)
+                    if (WeaponStagger <= 0)
                     {
                         GameHandler.Weapons[j].InvertRotation();
-                        WeaponStagger[j] = 50;
+                        WeaponStagger = 50;
                     }
-
                 }
             }
         }
-        for (int i = 0; i < WeaponStagger.Length; i++)
-            WeaponStagger[i]--;
+        // for (int i = 0; i < WeaponStagger.Length; i++)
+        WeaponStagger--;
     }
 
 }
