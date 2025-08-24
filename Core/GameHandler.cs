@@ -25,7 +25,7 @@ public class GameHandler
         {
             Players[i] = new Ball
             {
-                Radius = 20,
+                Radius = 35,
                 SpeedY = 0.0f,
                 SpeedX = 0.0f,
                 Coordinate = GetRandomPositionInsideBorder(),
@@ -42,7 +42,7 @@ public class GameHandler
             {
                 Speed = 0,
                 Degree = 0,
-                HitBox = new Raylib_cs.Rectangle(GameHandler.Players[i].Coordinate, 75, 25),
+                HitBox = new Raylib_cs.Rectangle(GameHandler.Players[i].Coordinate, 100, 50),
                 RotationSpeed = 2
             };
         }

@@ -17,8 +17,6 @@ class Program
             Screen.Draw();
             frame = GetFrameTime();
             WeaponHanlder.WeaponCollision();
-            Console.WriteLine(SAT.GetRectangleCorners(GameHandler.Weapons[0].HitBox)[0].X);
-            Console.Write(SAT.GetRectangleCorners(GameHandler.Weapons[0].HitBox)[0].Y);
             Physics.UpdatePlayer(frame);
             WeaponHanlder.Spin();
             EndDrawing();

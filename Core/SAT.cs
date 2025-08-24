@@ -8,16 +8,25 @@ public class SAT
 {
     public static bool Collision(Weapon First, Weapon Second)
     {
-        float[][] frstAxisMM = new float[][]
+        Vector2[] firstPoints = RotatingRec(First.HitBox, First.Degree, Consts.WeaponVec);
+        Vector2[] secondPoints = RotatingRec(Second.HitBox, Second.Degree, Consts.WeaponVec);
+
+        float[] axes = new float[]
         {
-          MinMaxFind(RotatingRec(GetRectangleCorners(First.HitBox),First.Degree),First.Degree),
-          MinMaxFind(RotatingRec(GetRectangleCorners(First.HitBox), Second.Degree), Second.Degree)
+          First.Degree,
+          First.Degree + 90,
+          Second.Degree,
+          Second.Degree + 90
         };
-        float[][] scndAxisMM = new float[][]
+
+        foreach (float axis in axes)
         {
-          MinMaxFind(RotatingRec(GetRectangleCorners(Second.HitBox),First.Degree),First.Degree),
-          MinMaxFind(RotatingRec(GetRectangleCorners(Second.HitBox), Second.Degree), Second.Degree)
-        };
+            float[] projA = MinMaxFind(firstPoints, axis);
+            float[] projB = MinMaxFind(secondPoints, axis);
+
+            if (projA[1] < projB[0] || projB[1] < projA[0])
+                return false;
+        }
 
         return true;
     }
@@ -29,38 +38,39 @@ public class SAT
 
         for (int i = 0; i < points.Length; i++)
             projection[i] = (float)(points[i].X * Math.Cos(a) + points[i].Y * Math.Sin(a));
+
         float[] result = new float[] { projection.Min(), projection.Max() };
 
         return result;
     }
 
-    public static Vector2[] RotatingRec(Vector2[] points, float degree)
+
+    public static Vector2[] RotatingRec(Rectangle rec, float degree, Vector2 origin)
     {
-        Vector2[] result = new Vector2[points.Length];
+        Vector2[] result = new Vector2[4];
         double a = degree * Math.PI / 180;
 
-        for (int i = 0; i < points.Length; i++)
+        Vector2[] localCorners =
         {
-            Vector2 shifted = points[i] + Consts.WeaponVec;
+         new(0, 0),
+         new(rec.Width, 0),
+         new(rec.Width, rec.Height),
+         new(0, rec.Height)
+        };
 
-            Vector2 rotated = new Vector2(
-                (float)(Math.Cos(a) * Consts.WeaponVec.X - Math.Sin(a) * Consts.WeaponVec.Y),
-                (float)(Math.Sin(a) * Consts.WeaponVec.X + Math.Cos(a) * Consts.WeaponVec.Y)
+        for (int i = 0; i < 4; i++)
+        {
+            Vector2 shifted = localCorners[i] - origin;
+
+            Vector2 rotated = new(
+                (float)(shifted.X * Math.Cos(a) - shifted.Y * Math.Sin(a)),
+                (float)(shifted.X * Math.Sin(a) + shifted.Y * Math.Cos(a))
             );
 
-            result[i] = shifted + rotated;
+            result[i] = rotated + origin + new Vector2(rec.X, rec.Y);
         }
 
         return result;
     }
-
-    public static Vector2[] GetRectangleCorners(Rectangle rec) =>
-        new Vector2[]
-        {
-          new Vector2(rec.X, rec.Y),
-          new Vector2(rec.X + rec.Width, rec.Y),
-          new Vector2(rec.X + rec.Width, rec.Y + rec.Height),
-          new Vector2(rec.X, rec.Y + rec.Height)
-        };
 
 }

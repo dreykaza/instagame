@@ -9,7 +9,7 @@ public class Consts
 
     public const int G = 5;
 
-    public static System.Numerics.Vector2 WeaponVec = new System.Numerics.Vector2 { X = 0, Y = 13 };
+    public static System.Numerics.Vector2 WeaponVec = new System.Numerics.Vector2 { X = 0, Y = 25 };
 
     public const int Screen = 900;
     public const int borderThickness = 10;
