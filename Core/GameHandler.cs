@@ -5,11 +5,11 @@ namespace Game.Core;
 
 public class GameHandler
 {
-    public static Ball[] Players;
-    public static Weapon[] Weapons;
+    public static List<Ball> Players = [];
+    public static List<Weapon> Weapons = [];
     private static readonly Random rng = new();
-    public static int playerCount => Players.Length;
-    public static int weaponCount => Weapons.Length;
+    public static int playerCount => Players.Count;
+    public static int weaponCount => Weapons.Count;
 
     public static void Init(int Count)
     {
@@ -20,31 +20,31 @@ public class GameHandler
 
     public static void PlayersInit(int Count)
     {
-        Players = new Ball[Count];
         for (int i = 0; i < Count; i++)
         {
-            Players[i] = new Ball
-            {
-                Radius = 35,
-                SpeedY = 0.0f,
-                SpeedX = 0.0f,
-                Coordinate = GetRandomPositionInsideBorder(),
-            };
+            Players.Add(
+                    new Ball
+                    {
+                        Radius = 35,
+                        SpeedY = 0.0f,
+                        SpeedX = 0.0f,
+                        Coordinate = GetRandomPositionInsideBorder(),
+                    });
         }
     }
 
     public static void WeaponInit(int Count)
     {
-        Weapons = new Weapon[Count];
         for (int i = 0; i < Count; i++)
         {
-            Weapons[i] = new Weapon
-            {
-                Speed = 0,
-                Degree = 0,
-                HitBox = new Raylib_cs.Rectangle(GameHandler.Players[i].Coordinate, 100, 50),
-                RotationSpeed = 2
-            };
+            Weapons.Add(
+                    new Weapon
+                    {
+                        Speed = 0,
+                        Degree = 0,
+                        HitBox = new Raylib_cs.Rectangle(GameHandler.Players[i].Coordinate, 100, 50),
+                        RotationSpeed = 2
+                    });
         }
     }
 

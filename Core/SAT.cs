@@ -6,6 +6,37 @@ namespace Game.Core;
 
 public class SAT
 {
+    public static bool Collision(Weapon First, Ball Player)
+    {
+        Vector2[] circlePoints =
+        {
+         new(Player.PlayerHitbox.X, Player.PlayerHitbox.Y),
+         new(Player.PlayerHitbox.X + Player.PlayerHitbox.Width, Player.PlayerHitbox.Y),
+         new(Player.PlayerHitbox.X + Player.PlayerHitbox.Width, Player.PlayerHitbox.Y + Player.PlayerHitbox.Height),
+         new(Player.PlayerHitbox.X, Player.PlayerHitbox.Y + Player.PlayerHitbox.Height)
+        };
+
+        Vector2[] WeaponPoints = RotatingRec(First.HitBox, First.Degree, Consts.WeaponVec);
+
+        float[] axes = new float[]
+        {
+            First.Degree,
+            First.Degree + 90,
+            0,
+            90
+        };
+        foreach (float axis in axes)
+        {
+            float[] projA = MinMaxFind(circlePoints, axis);
+            float[] projB = MinMaxFind(WeaponPoints, axis);
+
+            if (projA[1] < projB[0] || projB[1] < projA[0])
+                return false;
+        }
+
+        return true;
+    }
+
     public static bool Collision(Weapon First, Weapon Second)
     {
         Vector2[] firstPoints = RotatingRec(First.HitBox, First.Degree, Consts.WeaponVec);
