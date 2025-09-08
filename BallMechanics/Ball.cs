@@ -11,15 +11,29 @@ public class Ball
     // public double Health { get; set; }
     // public int WeaponId { get; set; }
     public Vector2 Coordinate { get; set; }
-    public float SpeedX { get; set; }
-    public float SpeedY { get; set; }
+    public Vector2 Speed { get; set; }
+    public float Acceleration { get; set; }
     public Rectangle PlayerHitbox { get; set; }
 
-    public void Move(float dx, float dy)
+    public void Move(float frame)
     {
-        Coordinate = new Vector2(Coordinate.X + dx, Coordinate.Y + dy);
+        Coordinate += Speed * Acceleration * frame;
         PlayerHitbox = new Rectangle(Coordinate.X - Radius, Coordinate.Y - Radius, Radius * 2, Radius * 2);
     }
-}
 
+    public void XResistance() =>
+        Speed = new(Speed.X > 0 ? Speed.X - 1 : Speed.X + 1, Speed.Y);
+
+    public void Accelerate(Vector2 speed) =>
+        Speed += speed;
+
+    public void Gravity(int G) =>
+        Speed = new(Speed.X, Speed.Y + G);
+
+    public void InvertX() =>
+        Speed = new(-Speed.X, Speed.Y);
+
+    public void InvertY() =>
+        Speed = new(Speed.X, -Speed.Y);
+}
 

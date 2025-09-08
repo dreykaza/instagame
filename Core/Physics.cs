@@ -1,3 +1,5 @@
+using System.Numerics;
+using Game.BallMechanics;
 using static Raylib_cs.Raylib;
 
 namespace Game.Core;
@@ -25,6 +27,9 @@ public class Physics
         }
 
         for (int i = 0; i < GameHandler.playerCount; i++)
+            GameHandler.Players[i].XResistance();
+
+        for (int i = 0; i < GameHandler.playerCount; i++)
         {
             switch (Collisions[i])
             {
@@ -33,34 +38,39 @@ public class Physics
                 case 1:
                     if (YStagger[i] <= 0)
                     {
-                        GameHandler.Players[i].SpeedY *= -1;
+                        GameHandler.Players[i].InvertY();
                         YStagger[i] = 50;
                     }
                     break;
                 case 2:
                     if (XStagger[i] <= 0)
                     {
-                        GameHandler.Players[i].SpeedX *= -1;
+                        GameHandler.Players[i].InvertX();
                         XStagger[i] = 50;
                     }
                     break;
             }
         }
+
         for (int i = 0; i < XStagger.Length; i++)
         {
             YStagger[i]--;
             XStagger[i]--;
-
         }
-        for (int i = 0; i < GameHandler.playerCount; i++)
-            GameHandler.Players[i].SpeedY += Consts.G;
 
         for (int i = 0; i < GameHandler.playerCount; i++)
-            GameHandler.Players[i].Move(GameHandler.Players[i].SpeedX * frame, GameHandler.Players[i].SpeedY * frame);
+            GameHandler.Players[i].Gravity(Consts.G);
+
+        for (int i = 0; i < GameHandler.playerCount; i++)
+            GameHandler.Players[i].Move(frame);
     }
 
-    public static void InitCollisions()
+    public static void ConflictInit(Ball Player, Ball Enemy)
     {
-        Collisions = new int[GameHandler.playerCount];
+        Vector2 Acceleration = Enemy.Coordinate * 0.5f;
+        Player.Accelerate(Acceleration);
     }
+
+    public static void InitCollisions() =>
+        Collisions = new int[GameHandler.playerCount];
 }

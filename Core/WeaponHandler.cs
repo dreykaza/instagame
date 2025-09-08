@@ -32,10 +32,10 @@ public class WeaponHanlder
 
         if (toRemove != -1)
         {
-            GameHandler.Players.RemoveAt(toRemove);
-            GameHandler.Weapons.RemoveAt(toRemove);
+            GameHandler.Timer = 400;
+            // GameHandler.Players.RemoveAt(toRemove);
+            // GameHandler.Weapons.RemoveAt(toRemove);
         }
-
     }
 
     public static void WeaponCollision()
@@ -50,6 +50,7 @@ public class WeaponHanlder
                     if (WeaponStagger[j] <= 0)
                     {
                         GameHandler.Weapons[j].InvertRotation();
+                        GameHandler.Timer = 400;
                         WeaponStagger[j] = new Random().Next(25, 52);
                     }
                 }

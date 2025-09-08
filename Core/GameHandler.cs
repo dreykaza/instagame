@@ -5,6 +5,7 @@ namespace Game.Core;
 
 public class GameHandler
 {
+    public static int Timer = 0;
     public static List<Ball> Players = [];
     public static List<Weapon> Weapons = [];
     private static readonly Random rng = new();
@@ -16,6 +17,7 @@ public class GameHandler
         PlayersInit(Count);
         Physics.InitCollisions();
         WeaponInit(Count);
+        _ = Task.Run(() => ConflictTimer());
     }
 
     public static void PlayersInit(int Count)
@@ -26,9 +28,9 @@ public class GameHandler
                     new Ball
                     {
                         Radius = 35,
-                        SpeedY = 0.0f,
-                        SpeedX = 0.0f,
+                        Speed = new Vector2 { X = 0, Y = 0 },
                         Coordinate = GetRandomPositionInsideBorder(),
+                        Acceleration = 1
                     });
         }
     }
@@ -48,7 +50,24 @@ public class GameHandler
         }
     }
 
+    public static void ConflictTimer()
+    {
+        while (true)
+        {
+            Timer--;
+            if (Timer < 0)
+                for (int i = 0; i < playerCount; i++)
+                    for (int j = 0; j < playerCount; j++)
+                    {
+                        if (i == j) continue;
 
+                        Physics.ConflictInit(GameHandler.Players[i], GameHandler.Players[j]);
+
+                        Timer = 500;
+                    }
+            Thread.Sleep(17);
+        }
+    }
     public static Vector2 GetRandomPositionInsideBorder()
     {
         int minX = Consts.leftMargin + Consts.borderThickness + 100;

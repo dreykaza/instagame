@@ -25,6 +25,7 @@ public class SAT
             0,
             90
         };
+
         foreach (float axis in axes)
         {
             float[] projA = MinMaxFind(circlePoints, axis);
