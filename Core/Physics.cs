@@ -27,7 +27,7 @@ public class Physics
         }
 
         for (int i = 0; i < GameHandler.playerCount; i++)
-            GameHandler.Players[i].XResistance();
+            GameHandler.Players[i].Resistance();
 
         for (int i = 0; i < GameHandler.playerCount; i++)
         {
@@ -39,14 +39,14 @@ public class Physics
                     if (YStagger[i] <= 0)
                     {
                         GameHandler.Players[i].InvertY();
-                        YStagger[i] = 50;
+                        YStagger[i] = 10;
                     }
                     break;
                 case 2:
                     if (XStagger[i] <= 0)
                     {
                         GameHandler.Players[i].InvertX();
-                        XStagger[i] = 50;
+                        XStagger[i] = 10;
                     }
                     break;
             }
@@ -63,12 +63,6 @@ public class Physics
 
         for (int i = 0; i < GameHandler.playerCount; i++)
             GameHandler.Players[i].Move(frame);
-    }
-
-    public static void ConflictInit(Ball Player, Ball Enemy)
-    {
-        Vector2 Acceleration = Enemy.Coordinate * 0.5f;
-        Player.Accelerate(Acceleration);
     }
 
     public static void InitCollisions() =>

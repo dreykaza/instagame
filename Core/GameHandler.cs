@@ -45,7 +45,7 @@ public class GameHandler
                         Speed = 0,
                         Degree = 0,
                         HitBox = new Raylib_cs.Rectangle(GameHandler.Players[i].Coordinate, 100, 50),
-                        RotationSpeed = 2
+                        RotationSpeed = 4
                     });
         }
     }
@@ -61,9 +61,11 @@ public class GameHandler
                     {
                         if (i == j) continue;
 
-                        Physics.ConflictInit(GameHandler.Players[i], GameHandler.Players[j]);
+                        Vector2 Acceleration = (GameHandler.Players[i].Coordinate -
+                                                GameHandler.Players[j].Coordinate) * 1f;
+                        GameHandler.Players[i].Accelerate(-Acceleration);
 
-                        Timer = 500;
+                        Timer = 100;
                     }
             Thread.Sleep(17);
         }

@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Game.Core;
 
 public class WeaponHanlder
@@ -50,6 +52,20 @@ public class WeaponHanlder
                     if (WeaponStagger[j] <= 0)
                     {
                         GameHandler.Weapons[j].InvertRotation();
+
+                        for (int k = 0; k < GameHandler.playerCount; k++)
+                            for (int g = 0; g < GameHandler.playerCount; g++)
+                            {
+                                if (k == g) continue;
+
+                                Vector2 Acceleration = (GameHandler.Players[k].Coordinate -
+                                                        GameHandler.Players[g].Coordinate) * 4f;
+                                // Console.WriteLine(Acceleration.X);
+                                // Console.WriteLine(Acceleration.Y);
+                                GameHandler.Players[k].Accelerate(Acceleration);
+
+                            }
+
                         GameHandler.Timer = 400;
                         WeaponStagger[j] = new Random().Next(25, 52);
                     }

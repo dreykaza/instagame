@@ -21,8 +21,8 @@ public class Ball
         PlayerHitbox = new Rectangle(Coordinate.X - Radius, Coordinate.Y - Radius, Radius * 2, Radius * 2);
     }
 
-    public void XResistance() =>
-        Speed = new(Speed.X > 0 ? Speed.X - 1 : Speed.X + 1, Speed.Y);
+    public void Resistance() =>
+        Speed = new(Speed.X > 0 ? Speed.X - 0.2f : Speed.X + 0.2f, Speed.Y - 0.1f);
 
     public void Accelerate(Vector2 speed) =>
         Speed += speed;

@@ -16,9 +16,6 @@ public class Screen
         foreach (var item in GameHandler.Players)
             DrawCircle((int)(item.Coordinate.X), (int)(item.Coordinate.Y), item.Radius, Color.Black);
 
-        foreach (var item in GameHandler.Players)
-            DrawRectangleLines((int)item.PlayerHitbox.X, (int)item.PlayerHitbox.Y, (int)item.PlayerHitbox.Width, (int)item.PlayerHitbox.Height, Color.Red);
-
         foreach (var item in GameHandler.Weapons)
             DrawRectanglePro(item.HitBox, Consts.WeaponVec, item.Degree, Color.Black);
     }
