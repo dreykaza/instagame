@@ -11,7 +11,7 @@ public class Weapon
     public int RotationSpeed { get; set; }
 
     public void Move(int Player) =>
-        HitBox = new(GameHandler.Players[Player].Coordinate, 100, 50);
+        HitBox = new(GameHandler.Players[Player].Coordinate, HitBox.Width, HitBox.Height);
 
     public void InvertRotation() =>
         RotationSpeed = -RotationSpeed;

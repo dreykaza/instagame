@@ -16,11 +16,19 @@ class Program
             BeginDrawing();
             Screen.Draw();
             frame = GetFrameTime();
-            WeaponHanlder.PlayerWeaponCollision();
-            WeaponHanlder.WeaponCollision();
-            Physics.UpdatePlayer(frame);
+            Collisions.PlayerWeaponCollision();
+            Collisions.WeaponCollision();
+            Collisions.BorderCollision(frame);
+            Physics.PlayerPhysics(frame);
             WeaponHanlder.Spin();
             EndDrawing();
         }
+    }
+
+
+    enum GameScreen
+    {
+        Title,
+        Gameplay
     }
 }

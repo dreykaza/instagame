@@ -5,7 +5,7 @@ namespace Game.Core;
 
 public class GameHandler
 {
-    public static int Timer = 0;
+    public static int ConflTimer = 0;
     public static List<Ball> Players = [];
     public static List<Weapon> Weapons = [];
     private static readonly Random rng = new();
@@ -15,8 +15,8 @@ public class GameHandler
     public static void Init(int Count)
     {
         PlayersInit(Count);
-        Physics.InitCollisions();
         WeaponInit(Count);
+        Collisions.InitCollisions();
         _ = Task.Run(() => ConflictTimer());
     }
 
@@ -54,8 +54,8 @@ public class GameHandler
     {
         while (true)
         {
-            Timer--;
-            if (Timer < 0)
+            ConflTimer--;
+            if (ConflTimer < 0)
                 for (int i = 0; i < playerCount; i++)
                     for (int j = 0; j < playerCount; j++)
                     {
@@ -65,7 +65,7 @@ public class GameHandler
                                                 GameHandler.Players[j].Coordinate) * 1f;
                         GameHandler.Players[i].Accelerate(-Acceleration);
 
-                        Timer = 100;
+                        ConflTimer = 100;
                     }
             Thread.Sleep(17);
         }
