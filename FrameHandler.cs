@@ -4,12 +4,12 @@ using static Raylib_cs.Raylib;
 
 namespace Game;
 
-public class Screen
+public class FrameHandler
 {
-    public static void Draw()
-    {
-        ClearBackground(Color.White);
+    static float frame;
 
+    public static void GameDraw()
+    {
         foreach (var item in Consts.borderRects)
             DrawRectangleRec(item, Color.Gray);
 
@@ -18,5 +18,15 @@ public class Screen
 
         foreach (var item in GameHandler.Weapons)
             DrawRectanglePro(item.HitBox, Consts.WeaponVec, item.Degree, Color.Black);
+    }
+
+    public static void GameLogic()
+    {
+        frame = GetFrameTime();
+        Collisions.PlayerWeaponCollision();
+        Collisions.WeaponCollision();
+        Collisions.BorderCollision(frame);
+        Physics.PlayerPhysics(frame);
+        WeaponHanlder.Spin();
     }
 }
