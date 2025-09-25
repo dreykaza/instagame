@@ -13,11 +13,12 @@ public class FrameHandler
         foreach (var item in Consts.borderRects)
             DrawRectangleRec(item, Color.Gray);
 
-        foreach (var item in GameHandler.Players)
-            DrawCircle((int)(item.Coordinate.X), (int)(item.Coordinate.Y), item.Radius, Color.Black);
-
         foreach (var item in GameHandler.Weapons)
-            DrawRectanglePro(item.HitBox, Consts.WeaponVec, item.Degree, Color.Black);
+            DrawRectanglePro(item.HitBox, item.WeaponVec, item.Degree, Color.Black);
+
+        foreach (var item in GameHandler.Players)
+            DrawCircle((int)(item.Coordinate.X), (int)(item.Coordinate.Y), item.Radius, item.Color);
+
     }
 
     public static void GameLogic()

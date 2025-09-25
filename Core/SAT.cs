@@ -16,7 +16,7 @@ public class SAT
          new(Player.PlayerHitbox.X, Player.PlayerHitbox.Y + Player.PlayerHitbox.Height)
         };
 
-        Vector2[] WeaponPoints = RotatingRec(First.HitBox, First.Degree, Consts.WeaponVec);
+        Vector2[] WeaponPoints = RotatingRec(First.HitBox, First.Degree, First.WeaponVec);
 
         float[] axes = new float[]
         {
@@ -40,8 +40,8 @@ public class SAT
 
     public static bool Collision(Weapon First, Weapon Second)
     {
-        Vector2[] firstPoints = RotatingRec(First.HitBox, First.Degree, Consts.WeaponVec);
-        Vector2[] secondPoints = RotatingRec(Second.HitBox, Second.Degree, Consts.WeaponVec);
+        Vector2[] firstPoints = RotatingRec(First.HitBox, First.Degree, First.WeaponVec);
+        Vector2[] secondPoints = RotatingRec(Second.HitBox, Second.Degree, First.WeaponVec);
 
         float[] axes = new float[]
         {

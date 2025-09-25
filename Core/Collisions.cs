@@ -5,10 +5,11 @@ namespace Game.Core;
 
 public class Collisions
 {
-    public static int[] BorderCollisions;
+    public static int[] BorderCollisions = new int[GameHandler.playerCount];
     public static int[] XStagger = new int[GameHandler.playerCount];
     public static int[] YStagger = new int[GameHandler.playerCount];
     public static int[] WeaponStagger = new int[GameHandler.weaponCount];
+    public static int[] HitStagger = new int[GameHandler.weaponCount];
 
     public static void BorderCollision(float frame)
     {
@@ -66,11 +67,20 @@ public class Collisions
                 if (i == j) continue;
                 if (SAT.Collision(GameHandler.Weapons[j], GameHandler.Players[i]))
                 {
+                    if (HitStagger[j] < 0)
+                    {
+                        GameHandler.Weapons[j].InvertRotation();
+                        GameHandler.Weapons[j].HitEffect();
+                        HitStagger[j] = 20;
+                    }
                     toRemove = i;
                     break;
                 }
             }
         }
+
+        for (int i = 0; i < HitStagger.Length; i++)
+            HitStagger[i]--;
 
         if (toRemove != -1)
         {
@@ -112,7 +122,4 @@ public class Collisions
         for (int i = 0; i < WeaponStagger.Length; i++)
             WeaponStagger[i]--;
     }
-
-    public static void InitCollisions() =>
-        BorderCollisions = new int[GameHandler.playerCount];
 }

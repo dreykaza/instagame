@@ -1,5 +1,6 @@
 using System.Numerics;
 using Game.BallMechanics;
+using Game.Weapons;
 
 namespace Game.Core;
 
@@ -12,22 +13,23 @@ public class GameHandler
     public static int playerCount => Players.Count;
     public static int weaponCount => Weapons.Count;
 
-    public static void Init(int Count)
+    public static void Init(int[] Health, int[] WeaponType)
     {
-        PlayersInit(Count);
-        WeaponInit(Count);
-        Collisions.InitCollisions();
+        PlayersInit(Health);
+        WeaponInit(WeaponType);
         _ = Task.Run(() => ConflictTimer());
     }
 
-    public static void PlayersInit(int Count)
+    public static void PlayersInit(int[] Health)
     {
-        for (int i = 0; i < Count; i++)
+        for (int i = 0; i < Health.Length; i++)
         {
             Players.Add(
                     new Ball
                     {
                         Radius = 35,
+                        Color = new Raylib_cs.Color((byte)Random.Shared.Next(0, 256), (byte)Random.Shared.Next(0, 256), (byte)Random.Shared.Next(0, 256)),
+                        Health = Health[i],
                         Speed = new Vector2 { X = 0, Y = 0 },
                         Coordinate = GetRandomPositionInsideBorder(),
                         Acceleration = 1
@@ -35,19 +37,10 @@ public class GameHandler
         }
     }
 
-    public static void WeaponInit(int Count)
+    public static void WeaponInit(int[] Type)
     {
-        for (int i = 0; i < Count; i++)
-        {
-            Weapons.Add(
-                    new Weapon
-                    {
-                        Speed = 0,
-                        Degree = 0,
-                        HitBox = new Raylib_cs.Rectangle(GameHandler.Players[i].Coordinate, 100, 50),
-                        RotationSpeed = 4
-                    });
-        }
+        for (int i = 0; i < Type.Length; i++)
+            Weapons.Add(WeaponFactory.Create(Type[i]));
     }
 
     public static void ConflictTimer()
@@ -70,6 +63,7 @@ public class GameHandler
             Thread.Sleep(17);
         }
     }
+
     public static Vector2 GetRandomPositionInsideBorder()
     {
         int minX = Consts.leftMargin + Consts.borderThickness + 100;

@@ -6,10 +6,8 @@ namespace Game.BallMechanics;
 public class Ball
 {
     public int Radius { get; set; }
-    // public int Id { get; set; }
-    // public Color Color { get; set; }
-    // public double Health { get; set; }
-    // public int WeaponId { get; set; }
+    public Color Color { get; set; }
+    public double Health { get; set; }
     public Vector2 Coordinate { get; set; }
     public Vector2 Speed { get; set; }
     public float Acceleration { get; set; }
