@@ -8,12 +8,16 @@ public class Dagger : Weapon
     {
         Id = 1;
         Damage = 1;
-        HitBox = new Raylib_cs.Rectangle(Random.Shared.Next(200), Random.Shared.Next(200), 75, 30);
+        HitBox = new Raylib_cs.Rectangle(Random.Shared.Next(2050), Random.Shared.Next(2500), 75, 30);
         WeaponVec = new System.Numerics.Vector2 { X = 0, Y = 17 };
         RotationSpeed = 10;
     }
 
     public override void HitEffect() =>
         RotationSpeed += 5;
+
+    public override string ShowStatistic() =>
+        $"{RotationSpeed} RotationSpeed";
+
 
 }

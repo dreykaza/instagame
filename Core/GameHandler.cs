@@ -28,7 +28,7 @@ public class GameHandler
                     new Ball
                     {
                         Radius = 35,
-                        Color = new Raylib_cs.Color((byte)Random.Shared.Next(0, 256), (byte)Random.Shared.Next(0, 256), (byte)Random.Shared.Next(0, 256)),
+                        Color = GenerateColor(),
                         Health = Health[i],
                         Speed = new Vector2 { X = 0, Y = 0 },
                         Coordinate = GetRandomPositionInsideBorder(),
@@ -78,4 +78,21 @@ public class GameHandler
         return new Vector2(x, y);
     }
 
+    public static Raylib_cs.Color GenerateColor()
+    {
+        while (true)
+        {
+            int r = (byte)Random.Shared.Next(0, 256);
+            int g = (byte)Random.Shared.Next(0, 256);
+            int b = (byte)Random.Shared.Next(0, 256);
+
+
+            double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+            if (luminance >= 80 && luminance <= 175)
+            {
+                return new Raylib_cs.Color(r, g, b, 255);
+            }
+        }
+    }
 }

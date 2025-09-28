@@ -36,14 +36,14 @@ public class Collisions
                     if (YStagger[i] <= 0)
                     {
                         GameHandler.Players[i].InvertY();
-                        YStagger[i] = 10;
+                        YStagger[i] = 5;
                     }
                     break;
                 case 2:
                     if (XStagger[i] <= 0)
                     {
                         GameHandler.Players[i].InvertX();
-                        XStagger[i] = 10;
+                        XStagger[i] = 5;
                     }
                     break;
             }
@@ -70,10 +70,11 @@ public class Collisions
                     if (HitStagger[j] < 0)
                     {
                         GameHandler.Weapons[j].InvertRotation();
+                        GameHandler.Players[i].Health -= GameHandler.Weapons[j].Damage;
                         GameHandler.Weapons[j].HitEffect();
-                        HitStagger[j] = 20;
+                        HitStagger[j] = 30;
+                        toRemove = i;
                     }
-                    toRemove = i;
                     break;
                 }
             }
@@ -85,8 +86,11 @@ public class Collisions
         if (toRemove != -1)
         {
             GameHandler.ConflTimer = 400;
-            // GameHandler.Players.RemoveAt(toRemove);
-            // GameHandler.Weapons.RemoveAt(toRemove);
+            if (GameHandler.Players[toRemove].Health <= 0)
+            {
+                GameHandler.Players.RemoveAt(toRemove);
+                GameHandler.Weapons.RemoveAt(toRemove);
+            }
         }
     }
 
