@@ -72,7 +72,7 @@ public class Collisions
                         GameHandler.Weapons[j].InvertRotation();
                         GameHandler.Players[i].Health -= GameHandler.Weapons[j].Damage;
                         GameHandler.Weapons[j].HitEffect();
-                        HitStagger[j] = 30;
+                        HitStagger[j] = 5;
                         toRemove = i;
                     }
                     break;
@@ -92,9 +92,31 @@ public class Collisions
                 GameHandler.Weapons.RemoveAt(toRemove);
             }
         }
+
     }
 
-    public static void WeaponCollision()
+    public static void PlayerPlayerCollision()
+    {
+        for (int i = 0; i < GameHandler.playerCount; i++)
+        {
+            for (int j = 0; j < GameHandler.playerCount; j++)
+            {
+                if (i == j) continue;
+                if (CheckCollisionCircles(GameHandler.Players[i].Coordinate,
+                                          GameHandler.Players[i].Radius,
+                                          GameHandler.Players[j].Coordinate,
+                                          GameHandler.Players[j].Radius))
+                {
+                    Vector2 Acceleration = (GameHandler.Players[i].Coordinate -
+                                            GameHandler.Players[j].Coordinate) * 1.5f;
+                    GameHandler.Players[i].Accelerate(Acceleration);
+
+                }
+            }
+        }
+    }
+
+    public static void WeaponWeaponCollision()
     {
         for (int i = 0; i < GameHandler.playerCount; i++)
         {
@@ -113,7 +135,7 @@ public class Collisions
                                 if (k == g) continue;
 
                                 Vector2 Acceleration = (GameHandler.Players[k].Coordinate -
-                                                        GameHandler.Players[g].Coordinate) * 4f;
+                                                        GameHandler.Players[g].Coordinate) * 1.5f;
                                 GameHandler.Players[k].Accelerate(Acceleration);
                             }
 

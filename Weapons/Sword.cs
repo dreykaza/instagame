@@ -9,10 +9,13 @@ public class Sword : Weapon
     {
         Id = 0;
         Damage = 1;
-        HitBox = new Raylib_cs.Rectangle(Random.Shared.Next(2000), Random.Shared.Next(2000), 90, 40);
-        WeaponVec = new System.Numerics.Vector2 { X = 0, Y = 20 };
+        HitBox = new Raylib_cs.Rectangle(Random.Shared.Next(2000), Random.Shared.Next(2000), 84, 52);
+        WeaponVec = new System.Numerics.Vector2 { X = -39, Y = 26 };
         RotationSpeed = 4;
-        Texture = Raylib.LoadTexture(Path.Combine("Textures", "Sword.png"));
+        Image img = Raylib.LoadImage("Textures/Sword.png");
+        Raylib.ImageResize(ref img, 87, 50);
+        Texture = Raylib.LoadTextureFromImage(img);
+        Raylib.UnloadImage(img);
     }
 
     public override void HitEffect() =>

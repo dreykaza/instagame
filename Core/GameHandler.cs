@@ -27,7 +27,7 @@ public class GameHandler
             Players.Add(
                     new Ball
                     {
-                        Radius = 35,
+                        Radius = 45,
                         Color = GenerateColor(),
                         Health = Health[i],
                         Speed = new Vector2 { X = 0, Y = 0 },
@@ -55,7 +55,7 @@ public class GameHandler
                         if (i == j) continue;
 
                         Vector2 Acceleration = (GameHandler.Players[i].Coordinate -
-                                                GameHandler.Players[j].Coordinate) * 1f;
+                                                GameHandler.Players[j].Coordinate) * 0.5f;
                         GameHandler.Players[i].Accelerate(-Acceleration);
 
                         ConflTimer = 100;

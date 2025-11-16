@@ -11,8 +11,6 @@ public class WeaponFactory
         { 2, () => new Spear()},
     };
 
-    public static Weapon Create(int id)
-    {
-        return weapons.ContainsKey(id) ? weapons[id]() : null;
-    }
+    public static Weapon Create(int id) =>
+        weapons.ContainsKey(id) ? weapons[id]() : null;
 }

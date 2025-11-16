@@ -20,7 +20,7 @@ public class Ball
     }
 
     public void Resistance() =>
-        Speed = new(Speed.X > 0 ? Speed.X - 0.2f : Speed.X + 0.2f, Speed.Y - 0.1f);
+        Speed = new(Speed.X > 0 ? Speed.X - 0.2f : Speed.X + 0.2f, Speed.Y - 0.3f);
 
     public void Accelerate(Vector2 speed) =>
         Speed += speed;
